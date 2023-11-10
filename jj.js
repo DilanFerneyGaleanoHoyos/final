@@ -9,17 +9,22 @@ let data = {
     const taskEnd = document.getElementById("task-end");
     const taskAddButton = document.getElementById("task-add");
 
-    // Función para agregar una nueva tarea
-    function addTask(taskName, taskEndDate) {
-      const taskId = `task-${Date.now()}`;
-      data.tasks[taskId] = {
-        task: taskName,
-        state: false,
-        finalizada: false,
-        end: taskEndDate
-      };
 
-      saveData(); // Guardar los datos actualizados en localStorage
+    function addTask(taskName, taskEndDate) {
+        if (Object.keys(data.tasks).length >= 20) {
+          alert("¡Has alcanzado el límite máximo de 20 actividades!");
+          return;
+        }
+        
+        const taskId = getOrdinal(Object.keys(data.tasks).length + 1);
+        data.tasks[taskId] = {
+          task: taskName,
+          state: false,
+          finalizada: false,
+          end: taskEndDate
+        };
+
+      saveData(); 
       filterTasks(taskFilter.value);
     }
 
@@ -83,8 +88,11 @@ let data = {
         taskEnd.value = "";
       }
     });
-
-    // Cargar los datos al cargar la página
+    function getOrdinal(n) {
+        const ordinals = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+        return ordinals[n - 1] || n.toString();
+      }
+ 
     loadData();
     filterTasks("all");
   });
@@ -93,21 +101,28 @@ let data = {
     if (e.target.classList.contains("change-state-button")) {
       const taskId = e.target.getAttribute("data-taskid");
       if (taskId && data.tasks[taskId] && !data.tasks[taskId].finalizada) {
-        data.tasks[taskId].state = true; // Marca la actividad como cumplida
-        data.tasks[taskId].finalizada = true; // Marca la actividad como finalizada
-        saveData(); // Guardar los datos actualizados en localStorage
+        data.tasks[taskId].state = true; 
+        data.tasks[taskId].finalizada = true; 
+        saveData(); 
+        location.reload();
         const taskFilter = document.getElementById("task-filter");
         filterTasks(taskFilter.value);
       }
     }
   });
+ 
 
-  // Función para guardar los datos en localStorage
+
+  
+  // ...
+  
+
+  
   function saveData() {
     localStorage.setItem("taskData", JSON.stringify(data));
   }
 
-  // Función para cargar los datos desde localStorage
+  // 
   function loadData() {
     const savedData = localStorage.getItem("taskData");
     if (savedData) {
