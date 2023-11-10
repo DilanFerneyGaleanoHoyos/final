@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Actividades</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Lista de Actividades</h1>
+    <div class="form-group">
+      <label for="task-filter">Filtrar por estado:</label>
+      <select id="task-filter" class="form-control">
+        <option value="all">Todas las actividades</option>
+        <option value="completed">Actividades cumplidas</option>
+        <option value="notCompleted">Actividades no cumplidas vigentes</option>
+        <option value="doneExpired">Actividades cumplidas no vigentes</option>
+      </select>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Fecha límite</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="task-table"></tbody>
+    </table>
+<br>
+    <div class="form-group">
+      <label for="task-input">Nueva Actividad:</label>
+      <input type="text" class="form-control" id="task-input" placeholder="Escribe una nueva actividad">
+      <label for="task-end">Fecha de Vencimiento:</label>
+      <input type="date" class="form-control" id="task-end">
+      <button class="btn btn-primary mt-2" id="task-add">Agregar Actividad</button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+
+</body>
+</html>
